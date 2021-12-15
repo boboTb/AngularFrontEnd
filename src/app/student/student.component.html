@@ -1,0 +1,172 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kos</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@icon/themify-icons/themify-icons.css">
+    <link
+        href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,700,900,400,500&amp;subset=latin,cyrillic,greek,latin-ext,greek-ext,vietnamese,cyrillic-ext"
+        rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
+    <!-- Fonts-->
+    <link href="http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic" rel="stylesheet"
+        type="text/css">
+    <link
+        href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <h2 class="dash-title">Prikazi Studenata i Kurseva</h2>
+    <div style="width:500px;">
+    <div class="row" style="height: 40px;"></div>
+            <div class="row">
+                <div class="col-sm-6">
+                <div class="text-center" style="float: right;">
+                    <button type="button" mdbbtn="" color="danger" rounded="true" size="sm" style="display: inline;"
+                        class="my-0 btn-danger btn-rounded btn" (click)="NoviStudent()"><i aria-hidden="true"></i>
+                        Dodavanje
+                        Studenta </button>
+                </div>
+                </div>
+                <div class="col-sm-6">
+                <div class="text-center" style="float:left">
+                    <button type="button" mdbbtn="" color="danger" rounded="true" size="sm" style="display: inline;"
+                        class="my-0 btn-danger btn-rounded btn" (click)="PikaziKurseve()"><i aria-hidden="true"></i>
+                        Pregled
+                        i dodavanje Kurseva</button>
+                </div>
+            </div>
+                </div>
+    </div>
+    <div style="padding-left: 30px;">
+        <div class="wrapper">
+            <div class="activity-griid">
+                <div class="activity-card">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form" style="margin-bottom: 15px;">
+                                <div class="inputfield">
+                                    <label>Naziv Kursa</label>
+                                    <div class="custom_select">
+                                        <select [(ngModel)]='Kurs_ID' (ngModelChange)="KursSelected()">
+                                            <option *ngFor="let k of Kursevi" [value]="k.Kurs_ID">{{k.Naziv_Kursa}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="height: 40px;"></div>
+        <div *ngIf="ShowS" class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Broj_Indeksa</th>
+                        <th>Ime</th>
+                        <th>Prezime</th>
+                        <th>Godina</th>
+                        <th>Status_Studenta</th>
+                        <th>Izmjeni Studenta</th>
+                        <th>Izbrisi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let m of ActiveStudent">
+                        <td><span>{{m.Broj_Indeksa}}</span></td>
+                        <td><span>{{m.Ime}}</span></td>
+                        <td><span>{{m.Prezime}}</span></td>
+                        <td><span>{{m.Godina}}</span></td>
+                        <td>
+                            <span contenteditable="false">
+                                <select [(ngModel)]="m.Status_Studenta" [disabled]="true">
+                                    <option value="1">Redovan</option>
+                                    <option value="2">Vanredan</option>
+                                </select>
+                            </span>
+                        </td>
+
+                        <td>
+                            <span>
+                                <button type="button" color="danger" rounded="true" size="sm"
+                                    class="my-0 btn-success btn-rounded btn" (click)="ChangeMember(m)"><i
+                                        class="fa fa-check" aria-hidden="true"></i> Izmjeni</button>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="table-remove">
+                                <button type="button" mdbbtn="" color="danger" rounded="true" size="sm"
+                                    class="my-0 btn-danger btn-rounded btn" (click)="DeleteMember(m)"><i
+                                        class="fa fa-times" aria-hidden="true"></i> Obrisi </button>
+
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row" style="height: 40px;"></div>
+        <div class="row">
+            <div class="text-center" style="float: left">
+                <button type="button" mdbbtn="" color="danger" rounded="true" size="sm"
+                    class="my-0 btn-danger btn-rounded btn" (click)="PikaziStudente()"><i aria-hidden="true"></i>
+                    {{ButtonText1}}</button>
+            </div>
+        </div>
+        <div class="row" style="height: 40px;"></div>
+        <div class="wrapper">
+            <div class="activity-griid">
+                <div class="activity-card">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form" style="margin-bottom: 15px;">
+                                <div class="inputfield">
+                                    <label>Student</label>
+                                    <div class="custom_select">
+                                        <select [(ngModel)]='Student_ID' (ngModelChange)="StudentSelected()">
+                                            <option *ngFor="let h of Student" [value]="h.Student_ID">{{h.Ime}}
+                                                {{h.Prezime}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="row" style="height: 40px;"></div>
+            <div *ngIf="ShowK" class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Naziv Kursa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let n of StudentKurs">
+                            <td><span>{{n.Naziv_Kursa}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kos</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@icon/themify-icons/themify-icons.css">
+    <link
+        href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,700,900,400,500&amp;subset=latin,cyrillic,greek,latin-ext,greek-ext,vietnamese,cyrillic-ext"
+        rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
+    <!-- Fonts-->
+    <link href="http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic" rel="stylesheet"
+        type="text/css">
+    <link
+        href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <h2 class="dash-title">Logovanje</h2>
+<div style="display: block;justify-content: center;">
+    <div style="display: flex;">
+        <div>Username: </div>
+        <input [(ngModel)] = "username" type="text"/>
+    </div>
+    <div style="display: flex;margin-top: 10px;">
+        <div>Password: </div>
+        <input [(ngModel)] = "password" type="password"/>
+    </div>
+    <button (click) = "Login()">Login</button>
+</div>
+
+</body>
+</html>

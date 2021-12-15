@@ -1,0 +1,154 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kos</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@icon/themify-icons/themify-icons.css">
+    <link
+        href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,700,900,400,500&amp;subset=latin,cyrillic,greek,latin-ext,greek-ext,vietnamese,cyrillic-ext"
+        rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
+    <!-- Fonts-->
+    <link href="http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic" rel="stylesheet"
+        type="text/css">
+    <link
+        href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <h2 class="dash-title">Prikazi Studenata i Kurseva</h2>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Naziv_Kursa</th>
+                    <th>Odaberi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let m of ActiveCourses">
+                    <td><span>{{m.Naziv_Kursa}}</span></td>
+                    <td>
+                        <span>
+                            <button type="button" mdbbtn="" color="danger" rounded="true" size="sm"
+                                class="my-0 btn-success btn-rounded btn" (click)="CourseSelected(m)"><i
+                                    class="fa fa-check" aria-hidden="true"></i> Odaberi</button>
+                        </span>
+                    </td>
+                </tr>
+                <div *ngIf="ShowS" class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Broj_Indeksa</th>
+                                <th>Ime</th>
+                                <th>Prezime</th>
+                                <th>Godina</th>
+                                <th>Status_Studenta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let m of ActiveStudent">
+                                <td><span>{{m.Broj_Indeksa}}</span></td>
+                                <td><span>{{m.Ime}}</span></td>
+                                <td><span>{{m.Prezime}}</span></td>
+                                <td><span>{{m.Godina}}</span></td>
+                                <td>
+                                    <span contenteditable="false">
+                                        <select [(ngModel)]="m.Status_Studenta" [disabled]="true">
+                                            <option value="1">Redovan</option>
+                                            <option value="2">Vanredan</option>
+                                        </select>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tbody>
+        </table>
+    </div>
+    <div class="wrapper">
+        <div class="form">
+            <div class="row">
+                <div class="inputfield" style="width: 400px;">
+                    <label>Naziv Kursa</label>
+                    <input type="text" class="input" [ngStyle]="{'border-color':!Naziv_Kursa ? 'red' : 'LightGray' }"
+                        [(ngModel)]='Naziv_Kursa'>
+                </div>
+                <div class="inputfield"  style="width: 400px;">
+                    <label>Odabir studenta za dodavanje:</label>
+                    <div class="custom_select">
+                        <select [(ngModel)]='Student_ID' (ngModelChange)="StudentSelected()">
+                            <option *ngFor="let k of Student" [value]="k.Student_ID"> {{k.Broj_Indeksa}}</option>
+                        </select>
+                        <span>
+                            <button *ngIf="ShowAdd" type="button" color="danger" rounded="true" size="sm"
+                                class="my-0 btn-success btn-rounded btn" (click)="AddKursToStudent()"><i
+                                    class="fa fa-check" aria-hidden="true"></i> Dodaj Kurs Studentu</button>
+                        </span>
+                    </div>
+                    <br />
+                </div>
+                <div class="row" style="height: 40px;"></div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ime</th>
+                                <th>Prezime</th>
+                                <th>Obrisi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let n of StudentiNaKursu">
+                                <td><span>{{n.Ime}}</span></td>
+                                <td><span>{{n.Prezime}}</span></td>
+                                <td>
+                                    <span class="table-remove">
+                                        <button type="button" mdbbtn="" color="danger" rounded="true" size="sm"
+                                            class="my-0 btn-danger btn-rounded btn" (click)="DeleteRelation(n)"><i
+                                                class="fa fa-times" aria-hidden="true">
+                                            </i> Obrisi </button>
+
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="row">
+                    <div class="text-center">
+                        <button style="margin-top:10px;" [disabled]="!Naziv_Kursa" (click)="CreateKurs()">
+                            <span class="ti ti-plus"></span>
+                            Create Kurs
+                        </button>
+                    </div>
+
+                    <div class="text-center">
+                        <button style="margin-top:10px" (click)="GoBack()">
+                            <span class="ti ti-plus"></span>
+                            Nazad
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+
+</html>
